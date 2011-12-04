@@ -15,11 +15,11 @@ Regexp::NumRange - Create Regular Expressions for numeric ranges
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 SYNOPSIS
 
@@ -32,8 +32,8 @@ Example Usage:
 
   my $rx = rx_max(255);
 
-  like '100', /^$rx$/, '100 is less than 255';
-  unlik '256', /^$rx$/, '256 is greater tha 255';
+  like '100', qr/^$rx$/, '100 is less than 255';
+  unlike '256', qr/^$rx$/, '256 is greater tha 255';
 
 =head1 EXPORT
 
@@ -45,20 +45,124 @@ Exports Available:
 
 =head2 rx_range
 
-Not yet implemented.
+Create a regex string between two abitrary integers.
+
+  use Test::More;
+  use Regexp::NumRange qw/ rx_range /;
+
+  my $string = rx_range(256, 1024);
+  my $rx = qr/^$string$/;
+
+  ok "10" !~ $rx;
+  ok "300" =~ $rx;
+  ok "2000" !~ $rx;
 
 =cut
 
 sub rx_range {
-    croak 'Not yet implemented.';
+    my ( $s, $e ) = @_;
+    $s = int($s);
+    $e = int($e);
+    ( $s, $e ) = ( $e, $s ) if $e < $s;
+    return rx_max($e) if $s == 0;
+
+    my @ds = split //, "$s";
+    my @de = split //, "$e";
+
+    my $maxd = scalar @de;
+    my $mind = scalar @ds;
+    my $diff = $maxd - $mind;
+
+    my $rx = '(';
+
+    # after last significant digit
+    my @l = @de;
+    my $a = 0;
+    if ( $diff || $de[0] - $ds[0] >= 1 ) {
+        while ( scalar(@l) >= 2 ) {
+            my $d = pop @l;
+            my $ld = ( $a == 0 ) ? $d : $d - 1;
+            next if $ld < 0;
+            $rx .= join( '', @l );
+            $rx .= "[0-$ld]";
+            $rx .= "[0-9]" if $a >= 1;
+            $rx .= "{$a}"  if $a > 1;
+            $rx .= '|';
+            $a++;
+        }
+    }
+
+    # counting up to common digits
+    if ($diff) {
+        my $min = $ds[0] + 1;
+        if ( $min <= 9 ) {
+            my $n = $mind - 1;
+            $rx .= "[$min-9]";
+            $rx .= "[0-9]{$n}" if $n >= 1;
+            $rx .= '|';
+        }
+    }
+    elsif ( $de[0] - $ds[0] > 1 ) {
+
+        # betwixt same digit
+        my $n  = $mind - 1;
+        my $d1 = $ds[0] + 1;
+        my $d2 = $de[0] - 1;
+        $rx .= "[$d1-$d2]";
+        $rx .= "[0-9]{$n}" if $n >= 1;
+        $rx .= '|';
+    }
+
+    # lowest digit
+    my $m  = $mind - 2;
+    my $l  = $ds[$#ds];
+    my $md = ( $ds[0] == $de[0] && !$diff ) ? $de[$#de] : 9;
+    $rx .= join( '', @ds[ 0 .. $m ] );
+    $rx .= "[$l-$md]";
+    $rx .= '|';
+
+    # full middle digit ranges
+    my $om = -1;
+    while ( $diff > 1 ) {
+        my $m = $maxd - $diff + 1;
+        my $r = ( $m == $maxd - 1 ) ? $de[0] - 1 : 9;
+        $diff--;
+        if ( $r <= 0 ) {
+            $r = 9;
+            $m--;
+        }
+        $rx .= "[1-$r]" if $r >= 1;
+        $rx .= '[0-9]';
+        $rx .= "{$m}"   if $r > 1;
+        $rx .= '|';
+        $om = $m;
+    }
+    if ( $diff == 1 ) {
+        my $m = $maxd - 1;
+        my $r = $de[0] - 1;
+        if ( $m == $om ) {
+            $r = 9;
+            $m = $mind;
+        }
+        if ( $r >= 1 ) {
+            $rx .= "[1-$r]";
+            $rx .= "[0-9]" if $m >= 1;
+            $rx .= "{$m}" if $m > 1;
+            $rx .= '|';
+        }
+        $m--;
+    }
+
+    $rx .= ')';
+    return $rx;
 }
 
 =head2 rx_max
 
 Create a regex string between 0 and an abitrary integer.
 
-  $rx_string = rx_max(1024); # create a string matches numbers between 0 and 1024
-  print $rx_string; # print (102[0-4]|10[0-1][0-9]|0?[0-9]{1,3})
+  my $rx_string = rx_max(1024); # create a string matching numbers between 0 and 1024
+  is $rx_string, '(102[0-4]|10[0-1][0-9]|0?[0-9]{1,3})';
 
 =cut
 
@@ -87,6 +191,7 @@ sub rx_max {
 }
 
 1;
+
 __END__
 
 =head1 SEE ALSO

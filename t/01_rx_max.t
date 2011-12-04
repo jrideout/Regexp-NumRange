@@ -1,3 +1,4 @@
+#!perl -T
 
 use strict;
 use warnings;
@@ -26,7 +27,7 @@ foreach my $t (@tests) {
             like int($e), $rx, "$e <= $n; int($e) should match: $rxs";
         }
         else {
-            unlike "$e", $rx, "$e > $n; '$e' should match: $rxs";
+            unlike "$e", $rx, "$e > $n; '$e' should not match: $rxs";
             unlike int($e), $rx, "$e > $n; int($e) should not match: $rxs";
         }
     }

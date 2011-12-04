@@ -15,8 +15,10 @@ MANIFEST.SKIP
 META.yml
 README
 t/00-load.t
-t/01_main.t
+t/01_rx_max.t
+t/02_rx_range.t
 t/boilerplate.t
+t/examples.t
 t/kwalitee.t
 t/manifest.t
 t/pod-coverage.t
