@@ -41,7 +41,9 @@ Create a regex string between 0 and an abitrary integer.
 
 # SEE ALSO
 
-[Regexp::Common](http://search.cpan.org/perldoc?Regexp::Common)
+[Regexp::Common::number](http://search.cpan.org/perldoc?Regexp::Common::number) - more variations, but restricted to number of digit matching
+
+[http://dev.perl.org/perl6/rfc/197.html](http://dev.perl.org/perl6/rfc/197.html) - same goal, but for perl6!
 
 # AUTHOR
 

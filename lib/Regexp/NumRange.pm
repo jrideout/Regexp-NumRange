@@ -91,7 +91,9 @@ __END__
 
 =head1 SEE ALSO
 
-L<Regexp::Common>
+L<Regexp::Common::number> - more variations, but restricted to number of digit matching
+
+L<http://dev.perl.org/perl6/rfc/197.html> - same goal, but for perl6!
 
 =head1 AUTHOR
 

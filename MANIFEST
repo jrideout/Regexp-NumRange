@@ -17,6 +17,7 @@ README
 t/00-load.t
 t/01_main.t
 t/boilerplate.t
+t/kwalitee.t
 t/manifest.t
 t/pod-coverage.t
 t/pod.t
