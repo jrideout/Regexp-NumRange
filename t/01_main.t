@@ -21,10 +21,11 @@ foreach my $t (@tests) {
     foreach my $e (@edge_cases) {
         next unless $e >= 0;
         my $match = "$e" =~ $rx && int($e) =~ $rx;
-        if ($e <= $n) {
+        if ( $e <= $n ) {
             like "$e", $rx, "$e <= $n; '$e' should match: $rxs";
             like int($e), $rx, "$e <= $n; int($e) should match: $rxs";
-        } else {
+        }
+        else {
             unlike "$e", $rx, "$e > $n; '$e' should match: $rxs";
             unlike int($e), $rx, "$e > $n; int($e) should not match: $rxs";
         }
