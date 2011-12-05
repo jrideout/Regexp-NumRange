@@ -1,11 +1,7 @@
-#!perl -T
+#!perl
 
-use Test::More;
+eval { require Test::Kwalitee; };
+exit if $@;
 
-eval {
-    require Test::Kwalitee;
-    Test::Kwalitee->import();
-};
-
-plan( skip_all => 'Test::Kwalitee not installed; skipping' ) if $@;
+Test::Kwalitee->import();
 

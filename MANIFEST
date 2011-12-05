@@ -18,8 +18,10 @@ t/00-load.t
 t/01_rx_max.t
 t/02_rx_range.t
 t/boilerplate.t
+t/critic.t
 t/examples.t
 t/kwalitee.t
 t/manifest.t
 t/pod-coverage.t
+t/pod-spelling.t
 t/pod.t

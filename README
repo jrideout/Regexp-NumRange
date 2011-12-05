@@ -27,7 +27,7 @@ EXPORT
 SUBROUTINES/METHODS
   rx_range
 
-    Create a regex string between two abitrary integers.
+    Create a regex string between two arbitrary integers.
 
       use Test::More;
       use Regexp::NumRange qw/ rx_range /;
@@ -41,7 +41,7 @@ SUBROUTINES/METHODS
 
   rx_max
 
-    Create a regex string between 0 and an abitrary integer.
+    Create a regex string between 0 and an arbitrary integer.
 
       my $rx_string = rx_max(1024); # create a string matching numbers between 0 and 1024
       is $rx_string, '(102[0-4]|10[0-1][0-9]|0?[0-9]{1,3})';

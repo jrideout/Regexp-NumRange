@@ -23,8 +23,8 @@ use Regexp::NumRange qw/ rx_max rx_range /;
 }
 
 {
-    my $rx_string =
-      rx_max(1024);    # create a string matching numbers between 0 and 1024
+    # create a string matching numbers between 0 and 1024
+    my $rx_string = rx_max(1024);
     is $rx_string, '(102[0-4]|10[0-1][0-9]|0?[0-9]{1,3})';
 }
 
