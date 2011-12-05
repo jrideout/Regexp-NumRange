@@ -4,7 +4,7 @@ Regexp::NumRange - Create Regular Expressions for numeric ranges
 
 # VERSION
 
-Version 0.01
+Version 0.02
 
 # SYNOPSIS
 
@@ -17,8 +17,8 @@ Example Usage:
 
     my $rx = rx_max(255);
 
-    like '100', /^$rx$/, '100 is less than 255';
-    unlik '256', /^$rx$/, '256 is greater tha 255';
+    like '100', qr/^$rx$/, '100 is less than 255';
+    unlike '256', qr/^$rx$/, '256 is greater tha 255';
 
 # EXPORT
 
@@ -30,14 +30,24 @@ Exports Available:
 
 ## rx_range
 
-Not yet implemented.
+Create a regex string between two abitrary integers.
+
+    use Test::More;
+    use Regexp::NumRange qw/ rx_range /;
+
+    my $string = rx_range(256, 1024);
+    my $rx = qr/^$string$/;
+
+    ok "10" !~ $rx;
+    ok "300" =~ $rx;
+    ok "2000" !~ $rx;
 
 ## rx_max
 
 Create a regex string between 0 and an abitrary integer.
 
-    $rx_string = rx_max(1024); # create a string matches numbers between 0 and 1024
-    print $rx_string; # print (102[0-4]|10[0-1][0-9]|0?[0-9]{1,3})
+    my $rx_string = rx_max(1024); # create a string matching numbers between 0 and 1024
+    is $rx_string, '(102[0-4]|10[0-1][0-9]|0?[0-9]{1,3})';
 
 # SEE ALSO
 
