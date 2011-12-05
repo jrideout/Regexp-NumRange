@@ -216,10 +216,7 @@ automatically be notified of progress on your bug as I make changes.
 
 =head1 SUPPORT
 
-You can find documentation for this module with the perldoc command.
-
-    perldoc Regexp::NumRange
-
+Fork on github: L<https://github.com/jrideout/Regexp-NumRange>
 
 You can also look for information at:
 
