@@ -4,7 +4,7 @@ Regexp::NumRange - Create Regular Expressions for numeric ranges
 
 # VERSION
 
-Version 0.02
+Version 0.03
 
 # SYNOPSIS
 
