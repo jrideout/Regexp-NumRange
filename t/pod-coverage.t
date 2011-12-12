@@ -2,6 +2,11 @@ use strict;
 use warnings;
 use Test::More;
 
+unless ( $ENV{RELEASE_TESTING} ) {
+    my $msg = 'Author test.  Set $ENV{RELEASE_TESTING} to a true value to run.';
+    plan( skip_all => $msg );
+}
+
 # Ensure a recent version of Test::Pod::Coverage
 my $min_tpc = 1.08;
 eval "use Test::Pod::Coverage $min_tpc";

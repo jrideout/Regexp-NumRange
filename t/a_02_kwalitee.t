@@ -1,21 +1,14 @@
 #!perl
 
-use strict;
-use warnings;
 use Test::More;
 
 unless ( $ENV{RELEASE_TESTING} ) {
     my $msg = 'Author test.  Set $ENV{RELEASE_TESTING} to a true value to run.';
     plan( skip_all => $msg );
+    exit 0;
 }
 
-eval "use Test::Spelling";
-exit if $@;
-add_stopwords(<DATA>);
-all_pod_files_spelling_ok();
+eval { require Test::Kwalitee; Test::Kwalitee->import() };
+ 
+plan( skip_all => 'Test::Kwalitee not installed; skipping' ) if $@;
 
-__END__
-Rideout
-CPAN
-AnnoCPAN
-github
