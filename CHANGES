@@ -1,4 +1,13 @@
 Revision history for Perl module Regexp::NumRange
 
-0.10  4 Dec 2011
+0.04  11 Aug 2013
+      Update build to Dist::Zilla
+
+0.03  12 Dec 2011
+      Fix tests and stabalize
+
+0.02  4 Dec 2011
+      Implement rx_range
+
+0.01  4 Dec 2011
       Initial version

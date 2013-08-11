@@ -4,13 +4,9 @@ Regexp::NumRange - Create Regular Expressions for numeric ranges
 
 # VERSION
 
-Version 0.03
+version 0.04
 
 # SYNOPSIS
-
-__Regexp::NumRange__ is a package for generating regular expression strings. These strings can be used in a regular expression to correctly match numeric strings within only a specified range.
-
-Example Usage:
 
     use Test::More;
     use Regexp::NumRange qw/ rx_max /;
@@ -20,15 +16,13 @@ Example Usage:
     like '100', qr/^$rx$/, '100 is less than 255';
     unlike '256', qr/^$rx$/, '256 is greater tha 255';
 
-# EXPORT
+# DESCRIPTION
 
-Exports Available:
+__Regexp::NumRange__ is a package for generating regular expression strings. These strings can be used in a regular expression to correctly match numeric strings within only a specified range.
 
-    use Regexp::NumRange qw/ rx_max rx_range /;
+# FUNCTIONS
 
-# SUBROUTINES/METHODS
-
-## rx_range
+## rx\_range
 
 Create a regex string between two arbitrary integers.
 
@@ -42,12 +36,18 @@ Create a regex string between two arbitrary integers.
     ok "300" =~ $rx;
     ok "2000" !~ $rx;
 
-## rx_max
+## rx\_max
 
 Create a regex string between 0 and an arbitrary integer.
 
     my $rx_string = rx_max(1024); # create a string matching numbers between 0 and 1024
     is $rx_string, '(102[0-4]|10[0-1][0-9]|0?[0-9]{1,3})';
+
+# EXPORT
+
+Exports Available:
+
+    use Regexp::NumRange qw/ rx_max rx_range /;
 
 # SEE ALSO
 
@@ -57,51 +57,11 @@ Create a regex string between 0 and an arbitrary integer.
 
 # AUTHOR
 
-Jacob R Rideout, `<cpan at jacobrideout.net>`
+Jacob R. Rideout <cpan@jacobrideout.net>
 
-# BUGS
+# COPYRIGHT AND LICENSE
 
-Please report any bugs or feature requests to `bug-regexp-numrange at rt.cpan.org`, or through
-the web interface at [http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Regexp-NumRange](http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Regexp-NumRange).  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
+This software is copyright (c) 2011 by Jacob R. Rideout.
 
-
-
-# SUPPORT
-
-Fork on github: [https://github.com/jrideout/Regexp-NumRange](https://github.com/jrideout/Regexp-NumRange)
-
-You can also look for information at:
-
-- RT: CPAN's request tracker (report bugs here)
-
-[http://rt.cpan.org/NoAuth/Bugs.html?Dist=Regexp-NumRange](http://rt.cpan.org/NoAuth/Bugs.html?Dist=Regexp-NumRange)
-
-- AnnoCPAN: Annotated CPAN documentation
-
-[http://annocpan.org/dist/Regexp-NumRange](http://annocpan.org/dist/Regexp-NumRange)
-
-- CPAN Ratings
-
-[http://cpanratings.perl.org/d/Regexp-NumRange](http://cpanratings.perl.org/d/Regexp-NumRange)
-
-- Search CPAN
-
-[http://search.cpan.org/dist/Regexp-NumRange/](http://search.cpan.org/dist/Regexp-NumRange/)
-
-
-
-# ACKNOWLEDGEMENTS
-
-Thanks to [Module::Install](http://search.cpan.org/perldoc?Module::Install)
-
-# LICENSE AND COPYRIGHT
-
-Copyright 2011 Jacob R Rideout.
-
-This program is free software; you can redistribute it and/or modify it
-under the terms of either: the GNU General Public License as published
-by the Free Software Foundation; or the Artistic License.
-
-See [http://dev.perl.org/licenses/](http://dev.perl.org/licenses/) for more information.
-
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
